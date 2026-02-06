@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1080px;
+  background: #111111;
+  font-family: 'DM Sans', sans-serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle grid pattern */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(6, 214, 160, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 214, 160, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.badge {
+  background: #06d6a0;
+  color: #111111;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #4a4a4a;
+}
+
+/* Tool name */
+.tool-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tool-emoji {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.tool-name {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+
+.tool-name .highlight {
+  color: #06d6a0;
+}
+
+.tool-tagline {
+  font-size: 28px;
+  color: #a0a0a0;
+  line-height: 1.4;
+  max-width: 800px;
+}
+
+/* Bottom */
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 60px;
+}
+
+.tags {
+  display: flex;
+  gap: 12px;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #06d6a0;
+  background: rgba(6, 214, 160, 0.1);
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(6, 214, 160, 0.2);
+}
+
+.author {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #4a4a4a;
+}
+
+.author span {
+  color: #06d6a0;
+}
+
+/* Verdict box */
+.verdict {
+  background: rgba(6, 214, 160, 0.08);
+  border: 1px solid rgba(6, 214, 160, 0.2);
+  border-radius: 12px;
+  padding: 24px 32px;
+  margin-top: 32px;
+}
+
+.verdict-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #06d6a0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.verdict-text {
+  font-size: 22px;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  color: #06d6a0;
+  margin-top: 40px;
+  padding: 12px 24px;
+  border: 2px solid #06d6a0;
+  border-radius: 8px;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="badge">🤖 IA DO DIA</div>
+    <div class="date">06.FEV.2026 — #001</div>
+  </div>
+
+  <div class="tool-section">
+    <div class="tool-name">Claude <span class="highlight">Cowork</span></div>
+    <div class="tool-tagline">A Anthropic lançou um agente que usa seu computador sozinho. Abre apps, clica botões, preenche planilhas. Tipo um estagiário que não pede café.</div>
+    
+    <div class="price">GRÁTIS (com limites) → claude.ai</div>
+
+    <div class="verdict">
+      <div class="verdict-label">veredito do macaco 🐒</div>
+      <div class="verdict-text">Funciona de verdade. Testei pedindo pra organizar uma planilha de gastos e ele fez em 2 minutos o que eu faria em 30. Assustador? Sim. Útil? Demais.</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="tags">
+      <div class="tag">produtividade</div>
+      <div class="tag">automação</div>
+      <div class="tag">grátis</div>
+    </div>
+    <div class="author">🐒 <span>@rpedroni</span></div>
+  </div>
+</body>
+</html>

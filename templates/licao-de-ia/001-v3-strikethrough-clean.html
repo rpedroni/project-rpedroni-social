@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  background: #111111;
+  font-family: 'DM Sans', sans-serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle grid */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(6, 214, 160, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 214, 160, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Corner glow */
+body::after {
+  content: '';
+  position: absolute;
+  top: -300px;
+  right: -300px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(6, 214, 160, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 200px;
+  font-weight: 600;
+  color: rgba(6, 214, 160, 0.08);
+  position: absolute;
+  top: 50px;
+  right: 60px;
+  line-height: 1;
+}
+
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #06d6a0;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 60px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.line1 {
+  font-size: 58px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+}
+
+.line1 .highlight {
+  color: #06d6a0;
+}
+
+.line2 {
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #444444;
+  text-decoration: line-through;
+  text-decoration-color: #06d6a0;
+  text-decoration-thickness: 3px;
+  margin-bottom: 50px;
+  max-width: 850px;
+}
+
+.line3 {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #06d6a0;
+  letter-spacing: -1px;
+}
+
+.shrug {
+  display: inline-block;
+  font-size: 56px;
+  margin-left: 8px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  right: 80px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.monkey-icon {
+  width: 44px;
+  height: 44px;
+  background: #06d6a0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.author-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #06d6a0;
+}
+
+.series {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #2a2a2a;
+}
+</style>
+</head>
+<body>
+  <div class="number">#01</div>
+  
+  <div class="badge">lição de ia</div>
+  
+  <div class="content">
+    <div class="line1">a IA <span class="highlight">não vai roubar</span> seu emprego</div>
+    
+    <div class="line2">ela vai roubar o emprego de quem não aprender a usar ela</div>
+    
+    <div class="line3">talvez roube mesmo <span class="shrug">🤷</span></div>
+  </div>
+
+  <div class="footer">
+    <div class="author">
+      <div class="monkey-icon">🐒</div>
+      <div class="author-text">@rpedroni</div>
+    </div>
+    <div class="series">lição de ia — #001</div>
+  </div>
+</body>
+</html>
