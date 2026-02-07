@@ -4,31 +4,87 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>DuckLabs 🦆 — IA explicada por quem constrói com ela</title>
-  
+  <title>@rpedroni — IA explicada por quem constrói com ela</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:wght@400;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --card: #141414;
+      --elevated: #1a1a1a;
+      --primary: #ffd700;
+      --secondary: #ffc800;
+      --accent: #ff8c00;
+      --text: #f5f5f5;
+      --text-secondary: #a3a3a3;
+      --text-dim: #666666;
+      --border: #222222;
+      --border-hover: rgba(255, 215, 0, 0.5);
+      --danger: #ef4444;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: #0a0a0a;
-      color: #ffffff;
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
+      overflow-x: hidden;
     }
-    
-    /* Pixel Duck */
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .monogram {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--primary);
+      letter-spacing: -1px;
+    }
+
+    .brand {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
     .duck-pixel {
       width: 1px;
       height: 1px;
-      position: absolute;
+      position: relative;
+      transform: scale(2);
       transform-origin: top left;
       box-shadow:
         4px 0 #ffd700, 5px 0 #ffd700, 6px 0 #ffd700,
@@ -42,508 +98,562 @@
         1px 8px #ffd700, 2px 8px #ffd700, 3px 8px #ffd700, 4px 8px #ffd700, 5px 8px #ffd700, 6px 8px #ffd700, 7px 8px #ffd700,
         2px 9px #ff8c00, 3px 9px #ff8c00, 5px 9px #ff8c00, 6px 9px #ff8c00;
     }
-    
-    /* Navigation */
-    nav {
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+    }
+
+    section {
+      padding: 5rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
-    
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .nav-logo .duck-pixel {
-      position: relative;
-      transform: scale(3);
-      margin-right: 20px;
-    }
-    
-    .nav-logo-text {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 14px;
-      color: #ffd700;
-      letter-spacing: 2px;
-    }
-    
-    .nav-cta {
-      background: #ffd700;
-      color: #0a0a0a;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.3s;
-    }
-    
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-    }
-    
-    /* Hero Section */
+
+    /* Hero */
     .hero {
-      padding: 4rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
       text-align: center;
+      padding: 6rem 2rem;
     }
-    
-    .hero-duck {
-      position: relative;
-      display: inline-block;
+
+    .separator {
+      width: 40px;
+      height: 2px;
+      background: var(--primary);
+      margin: 0 auto 2rem;
+    }
+
+    .hero-brand {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing: 4px;
       margin-bottom: 2rem;
     }
-    
-    .hero-duck .duck-pixel {
+
+    .hero h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 900;
+      font-size: 52px;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .hero h1 .highlight {
       position: relative;
-      transform: scale(25);
       display: inline-block;
     }
-    
-    .hero h1 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 36px;
-      color: #ffd700;
-      margin-bottom: 1.5rem;
-      letter-spacing: 2px;
-      line-height: 1.4;
+
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
     }
-    
-    .hero-tagline {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffffff;
+
+    .hero .subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
       margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    
-    .email-capture {
-      max-width: 500px;
-      margin: 0 auto 1rem;
+
+    .cta-buttons {
       display: flex;
       gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
-    
-    .email-input {
-      flex: 1;
-      padding: 1rem;
-      background: #141414;
-      border: 1px solid #1a1a1a;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      border-radius: 4px;
-      transition: border-color 0.3s;
-    }
-    
-    .email-input:focus {
-      outline: none;
-      border-color: #ffd700;
-    }
-    
-    .btn-primary {
-      background: #ffd700;
-      color: #0a0a0a;
+
+    .btn {
       padding: 1rem 2rem;
-      border: none;
+      border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
       font-weight: 700;
       font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
+      text-decoration: none;
       transition: all 0.3s;
-      white-space: nowrap;
+      cursor: pointer;
+      display: inline-block;
     }
-    
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--bg);
+      border: none;
+    }
+
     .btn-primary:hover {
+      background: var(--secondary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
     }
-    
-    .hero-social-proof {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: #666666;
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px solid #444;
     }
-    
-    /* What You Get Section */
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    }
+
+    .social-proof {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* Features */
     .features {
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      border-top: 1px solid #1a1a1a;
+      background: var(--surface);
     }
-    
+
+    .section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: lowercase;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 3rem;
     }
-    
+
     .feature {
       text-align: center;
     }
-    
-    .feature-emoji {
+
+    .feature-icon {
       font-size: 48px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-    
+
     .feature h3 {
       font-family: 'DM Sans', sans-serif;
       font-weight: 700;
       font-size: 20px;
-      margin-bottom: 0.75rem;
-      color: #ffd700;
+      margin-bottom: 0.8rem;
     }
-    
+
     .feature p {
-      color: #999999;
-      font-size: 16px;
-      line-height: 1.6;
+      color: var(--text-secondary);
+      font-size: 15px;
     }
-    
-    /* Content Preview Section */
+
+    /* Content Preview */
     .content-preview {
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      border-top: 1px solid #1a1a1a;
+      background: var(--bg);
     }
-    
-    .section-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 14px;
-      color: #ffd700;
-      text-align: center;
-      margin-bottom: 3rem;
-      letter-spacing: 2px;
-    }
-    
+
     .preview-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
     }
-    
-    .card {
-      background: #141414;
-      border: 1px solid #1a1a1a;
-      border-radius: 8px;
+
+    .preview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       padding: 2rem;
       position: relative;
-      overflow: hidden;
       transition: all 0.3s;
     }
-    
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #ffd700, #ff8c00);
+
+    .preview-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.08);
     }
-    
-    .card:hover {
-      border-color: #ffd700;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+
+    .preview-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: block;
     }
-    
-    .card-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: #ffd700;
-      border: 1px solid #333;
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      display: inline-block;
+
+    .preview-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 0.8rem;
+    }
+
+    .preview-card .struck {
+      color: var(--text-dim);
+      text-decoration: line-through;
+      text-decoration-color: var(--danger);
+      font-size: 14px;
+      margin-bottom: 0.5rem;
+    }
+
+    .preview-card .punchline {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .preview-card p {
+      color: var(--text-secondary);
+      font-size: 14px;
       margin-bottom: 1rem;
     }
-    
-    .card-title {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 20px;
-      margin-bottom: 0.75rem;
-      color: #ffffff;
-    }
-    
-    .card-description {
+
+    .preview-card .verdict {
+      font-weight: 600;
       font-size: 14px;
-      color: #999999;
-      line-height: 1.6;
     }
-    
-    /* About Section */
+
+    .preview-card .duck-watermark {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      opacity: 0.3;
+    }
+
+    /* About */
     .about {
-      padding: 6rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      border-top: 1px solid #1a1a1a;
-      text-align: center;
+      background: var(--surface);
     }
-    
-    .about h2 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 18px;
-      color: #ffd700;
-      margin-bottom: 2rem;
-      letter-spacing: 2px;
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      align-items: center;
     }
-    
-    .about p {
-      font-size: 18px;
-      color: #999999;
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-    }
-    
-    .about-quote {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 20px;
-      color: #ffd700;
-      margin-top: 2rem;
-    }
-    
-    /* CTA Section */
-    .cta-section {
-      padding: 6rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      border-top: 1px solid #1a1a1a;
-      text-align: center;
-    }
-    
-    .cta-section h2 {
+
+    .monogram-large {
       font-family: 'DM Sans', sans-serif;
       font-weight: 900;
-      font-size: 32px;
-      color: #ffffff;
+      font-size: 120px;
+      color: var(--primary);
+      letter-spacing: -8px;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .about-text h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: lowercase;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    .duck-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Email Capture */
+    .email-capture {
+      background: var(--bg);
+    }
+
+    .email-card {
+      background: var(--card);
+      border-left: 3px solid var(--primary);
+      border-radius: 12px;
+      padding: 3rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .email-card h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      margin-bottom: 0.8rem;
+    }
+
+    .email-card .subtitle {
+      color: var(--text-secondary);
+      font-size: 15px;
       margin-bottom: 2rem;
     }
-    
+
+    .email-form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .email-form input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .email-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .email-form button {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .email-form button:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .email-disclaimer {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
     /* Footer */
     footer {
-      border-top: 1px solid #1a1a1a;
+      background: var(--surface);
       padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
     }
-    
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
+
+    .footer-duck {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
     }
-    
+
     .footer-brand {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
       display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 14px;
-      color: #666666;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
-    
-    .footer-brand .duck-pixel {
-      position: relative;
-      transform: scale(2);
-      margin-right: 10px;
-    }
-    
-    .footer-social {
-      display: flex;
-      gap: 1.5rem;
-    }
-    
-    .footer-social a {
-      color: #666666;
+
+    .footer-links a {
+      color: var(--text-secondary);
       text-decoration: none;
       font-size: 14px;
-      transition: color 0.3s;
+      transition: color 0.2s;
     }
-    
-    .footer-social a:hover {
-      color: #ffd700;
+
+    .footer-links a:hover {
+      color: var(--primary);
     }
-    
+
     .footer-tagline {
-      text-align: center;
-      color: #666666;
-      font-size: 12px;
-      margin-top: 2rem;
+      font-size: 13px;
+      color: var(--text-dim);
     }
-    
-    /* Responsive */
+
+    /* Mobile */
     @media (max-width: 768px) {
       nav {
-        flex-direction: column;
-        gap: 1rem;
+        padding: 1rem;
       }
-      
+
+      .hero {
+        padding: 4rem 1.5rem;
+      }
+
       .hero h1 {
-        font-size: 24px;
+        font-size: 36px;
       }
-      
-      .hero-tagline {
+
+      .hero .subtitle {
         font-size: 18px;
       }
-      
-      .hero-duck .duck-pixel {
-        transform: scale(18);
-      }
-      
-      .email-capture {
+
+      .cta-buttons {
         flex-direction: column;
+        align-items: stretch;
       }
-      
+
       .features-grid {
         grid-template-columns: 1fr;
+        gap: 3rem;
       }
-      
+
       .preview-grid {
         grid-template-columns: 1fr;
       }
-      
-      .footer-content {
-        flex-direction: column;
+
+      .about-content {
+        grid-template-columns: 1fr;
         gap: 2rem;
+      }
+
+      .monogram-large {
+        font-size: 80px;
+      }
+
+      .email-card {
+        padding: 2rem;
+      }
+
+      .email-form {
+        flex-direction: column;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <nav>
-    <div class="nav-logo">
-      <div class="duck-pixel"></div>
-      <span class="nav-logo-text">DUCKLABS</span>
+    <div class="nav-left">
+      <div class="monogram">RP</div>
+      <div class="brand">@rpedroni</div>
     </div>
-    <button class="nav-cta">Seguir 🦆</button>
+    <div class="duck-pixel"></div>
   </nav>
-  
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-duck">
-      <div class="duck-pixel"></div>
-    </div>
-    <h1>DUCKLABS</h1>
-    <p class="hero-tagline">IA explicada por quem constrói com ela.</p>
-    
-    <form class="email-capture">
-      <input type="email" class="email-input" placeholder="seu@email.com" required>
-      <button type="submit" class="btn-primary">Receber lições 🦆</button>
-    </form>
-    
-    <p class="hero-social-proof">12.400+ builders já recebem toda semana.</p>
-  </section>
-  
-  <!-- What You Get Section -->
-  <section class="features">
-    <div class="features-grid">
-      <div class="feature">
-        <div class="feature-emoji">📚</div>
-        <h3>Lições semanais de IA</h3>
-        <p>Direto ao ponto. Sem enrolação.</p>
+
+  <main>
+    <section class="hero">
+      <div class="separator"></div>
+      <div class="hero-brand">@RPEDRONI</div>
+      <h1>IA explicada por quem <span class="highlight">constrói</span> com ela.</h1>
+      <p class="subtitle">Lições diretas, reviews honestos, zero enrolação. Toda semana no seu Instagram.</p>
+      <div class="cta-buttons">
+        <a href="https://instagram.com/rpedroni" class="btn btn-primary" target="_blank">Seguir no Instagram →</a>
+        <a href="#content" class="btn btn-secondary">Ver conteúdo ↓</a>
       </div>
-      
-      <div class="feature">
-        <div class="feature-emoji">🔍</div>
-        <h3>Reviews honestos</h3>
-        <p>Testado de verdade, não demo.</p>
+      <p class="social-proof">12.400+ pessoas já acompanham</p>
+    </section>
+
+    <section class="features">
+      <h2 class="section-title">o que você vai encontrar</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">📚</div>
+          <h3>Lições de IA</h3>
+          <p>Conceitos explicados em 60 segundos. Direto ao ponto.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔍</div>
+          <h3>Reviews honestos</h3>
+          <p>Testei de verdade — no meu trabalho, não em demo.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🧪</div>
+          <h3>Experimentos</h3>
+          <p>O que funciona e o que explode. Sem filtro.</p>
+        </div>
       </div>
-      
-      <div class="feature">
-        <div class="feature-emoji">🧪</div>
-        <h3>Experimentos ao vivo</h3>
-        <p>O que funciona e o que explode.</p>
+    </section>
+
+    <section class="content-preview" id="content">
+      <h2 class="section-title">conteúdo recente</h2>
+      <div class="preview-grid">
+        <div class="preview-card">
+          <span class="preview-tag">📚 LIÇÃO DE IA #047</span>
+          <h4>a IA não vai roubar seu emprego.</h4>
+          <p class="struck">ela vai roubar o emprego de quem não souber usar.</p>
+          <p class="punchline">talvez roube mesmo 🤷</p>
+          <div class="duck-pixel duck-watermark"></div>
+        </div>
+
+        <div class="preview-card">
+          <span class="preview-tag">🔍 IA DO DIA</span>
+          <h4>Claude Cowork</h4>
+          <p>O novo modo de pair programming da Anthropic.</p>
+          <p class="verdict">🦆 Veredito: 4/5 bananas</p>
+        </div>
+
+        <div class="preview-card">
+          <span class="preview-tag">☠️ SUNSET</span>
+          <h4>Google Bard morreu.</h4>
+          <p>847 usaram · 234 sentiram falta</p>
+        </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Content Preview Section -->
-  <section class="content-preview">
-    <h2 class="section-title">📌 ÚLTIMAS PUBLICAÇÕES</h2>
-    <div class="preview-grid">
-      <div class="card">
-        <span class="card-tag">LIÇÃO DE IA</span>
-        <h3 class="card-title">Por que IA não substitui você (ainda)</h3>
-        <p class="card-description">
-          A maioria das ferramentas de IA são só autocomplete glorificado. 
-          O verdadeiro valor está em saber quando NÃO usar IA.
-        </p>
+    </section>
+
+    <section class="about">
+      <div class="about-content">
+        <div class="monogram-large">RP</div>
+        <div class="about-text">
+          <h3>quem sou eu</h3>
+          <p>Ricardo Pedroni. CTO há 10+ anos. Construo software desde antes do iPhone existir.</p>
+          <p>Testo cada IA no meu trabalho real — não em cenário de demo. Se funciona pra mim, funciona pra você. Se não funciona, você vai saber também.</p>
+          <p class="duck-line">
+            O pato? É meu assistente de revisão. Ele julga, eu explico.
+            <span class="duck-pixel"></span>
+          </p>
+        </div>
       </div>
-      
-      <div class="card">
-        <span class="card-tag">IA DO DIA</span>
-        <h3 class="card-title">Claude vs GPT-4: Veredito</h3>
-        <p class="card-description">
-          Testei os dois durante 30 dias em tarefas reais de desenvolvimento. 
-          Os resultados podem te surpreender.
-        </p>
+    </section>
+
+    <section class="email-capture">
+      <div class="email-card">
+        <h3>receba as lições toda semana</h3>
+        <p class="subtitle">sem spam, sem enrolação — só o que importa</p>
+        <div class="email-form">
+          <input type="email" placeholder="seu@email.com">
+          <button>Receber 🦆</button>
+        </div>
+        <p class="email-disclaimer">grátis. cancela quando quiser.</p>
       </div>
-      
-      <div class="card">
-        <span class="card-tag">SUNSET</span>
-        <h3 class="card-title">RIP Google Bard (2023-2024)</h3>
-        <p class="card-description">
-          Mais uma ferramenta que o Google abandonou. 
-          Aqui está por que ela nunca teve chance de competir.
-        </p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- About Section -->
-  <section class="about">
-    <h2>QUEM É O PATO?</h2>
-    <p>
-      Ricardo é CTO com 20 anos em tech. Construiu sistemas usados por milhões. 
-      Agora ensina builders a usar IA de verdade — não só brincar com demos.
-    </p>
-    <p class="about-quote">
-      "O pato não fala bonito. O pato testa, constrói e conta a verdade."
-    </p>
-  </section>
-  
-  <!-- Final CTA Section -->
-  <section class="cta-section">
-    <h2>Pronto pra aprender IA com quem usa de verdade?</h2>
-    <form class="email-capture">
-      <input type="email" class="email-input" placeholder="seu@email.com" required>
-      <button type="submit" class="btn-primary">Receber lições 🦆</button>
-    </form>
-    <p class="hero-social-proof">Sem spam. Só conteúdo de valor. Toda semana.</p>
-  </section>
-  
-  <!-- Footer -->
+    </section>
+  </main>
+
   <footer>
-    <div class="footer-content">
-      <div class="footer-brand">
-        <div class="duck-pixel"></div>
-        <span>© 2026 DuckLabs · @rpedroni</span>
-      </div>
-      <div class="footer-social">
-        <a href="https://instagram.com/rpedroni" target="_blank">Instagram</a>
-        <a href="https://youtube.com/@rpedroni" target="_blank">YouTube</a>
-        <a href="https://x.com/rpedroni" target="_blank">Twitter/X</a>
-      </div>
+    <div class="footer-duck">
+      <div class="duck-pixel"></div>
+      <span class="footer-brand">@rpedroni</span>
     </div>
-    <div class="footer-tagline">
-      feito com 🦆 e café
+    <div class="footer-links">
+      <a href="https://instagram.com/rpedroni" target="_blank">Instagram</a>
+      <a href="https://youtube.com/@rpedroni" target="_blank">YouTube</a>
+      <a href="https://twitter.com/rpedroni" target="_blank">Twitter/X</a>
     </div>
+    <p class="footer-tagline">feito com café e opiniões fortes ☕</p>
   </footer>
 </body>
 </html>
