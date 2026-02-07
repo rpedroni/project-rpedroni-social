@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  background: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.badge {
+  background: #ffd700;
+  color: #0a0a0a;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #666666;
+}
+
+.tool-name {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+
+.tool-tagline {
+  font-size: 28px;
+  color: #a3a3a3;
+  margin-bottom: 50px;
+  line-height: 1.4;
+}
+
+.verdict-section {
+  background: #111111;
+  border: 1px solid #222222;
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 40px;
+}
+
+.verdict-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.verdict-text {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.verdict-text .gold { color: #ffd700; }
+.verdict-text .red { color: #e74c3c; }
+.verdict-text .green { color: #22c55e; }
+
+.stats-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.stat {
+  flex: 1;
+  background: #111111;
+  border: 1px solid #222222;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 36px;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pros-cons {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+}
+
+.pros, .cons {
+  flex: 1;
+}
+
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.pros .section-title { color: #22c55e; }
+.cons .section-title { color: #e74c3c; }
+
+.item {
+  font-size: 20px;
+  color: #a3a3a3;
+  margin-bottom: 12px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.item::before {
+  position: absolute;
+  left: 0;
+}
+
+.pros .item::before { content: '✓'; color: #22c55e; }
+.cons .item::before { content: '✗'; color: #e74c3c; }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  right: 80px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rp-icon {
+  width: 44px;
+  height: 44px;
+  background: #ffd700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.author-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #ffd700;
+}
+
+.series {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #333333;
+}
+
+.duck-accent {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  font-size: 24px;
+  opacity: 0.12;
+}
+</style>
+</head>
+<body>
+  <div class="duck-accent">🦆</div>
+  
+  <div class="top-bar">
+    <div class="badge">ia do dia</div>
+    <div class="date">10 FEV 2026</div>
+  </div>
+
+  <div class="tool-name">ChatGPT</div>
+  <div class="tool-tagline">Você usa 10% do que ele faz. Hoje a gente corrige isso.</div>
+
+  <div class="verdict-section">
+    <div class="verdict-label">veredito do pato 🦆</div>
+    <div class="verdict-text">A <span class="gold">canivete suíço</span> da IA. Não é a melhor em tudo, mas é <span class="green">boa em quase tudo</span>.</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-value">Free</div>
+      <div class="stat-label">GPT-4o mini</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">$20</div>
+      <div class="stat-label">/mês Plus</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">300M+</div>
+      <div class="stat-label">usuários/semana</div>
+    </div>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <div class="section-title">prós</div>
+      <div class="item">Faz texto, imagem, áudio e análise</div>
+      <div class="item">GPTs customizados (assistentes prontos)</div>
+      <div class="item">Entende fotos, PDFs, planilhas</div>
+      <div class="item">Versão grátis já é muito boa</div>
+    </div>
+    <div class="cons">
+      <div class="section-title">contras</div>
+      <div class="item">Alucina com convicção</div>
+      <div class="item">Pesquisa na web ainda é fraca</div>
+      <div class="item">Plus é caro pro Brasil (R$100+)</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="author">
+      <div class="rp-icon">RP</div>
+      <div class="author-text">@rpedroni</div>
+    </div>
+    <div class="series">ia do dia — #001</div>
+  </div>
+</body>
+</html>

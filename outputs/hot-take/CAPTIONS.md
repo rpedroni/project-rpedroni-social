@@ -24,15 +24,17 @@ IA é um amplificador. Se você não sabe o que quer comunicar, ela amplifica a 
 
 🔥 Hot Take #002
 
-Devs que usam IA passivamente sabem 17% MENOS que devs que não usam.
+Profissionais que usam IA passivamente sabem 17% MENOS que quem não usa.
 
-Estudo da Anthropic (Jan 2026): usar IA pra copiar código atrofia. Usar pra ENTENDER código não.
+Estudo da Anthropic (Jan 2026): aceitar tudo que a IA gera sem pensar te atrofia. Usar IA pra ENTENDER melhor o que você faz, não.
 
-A diferença entre "colei o código que a IA gerou" e "pedi pra IA me explicar e depois escrevi eu mesmo" é enorme. A primeira te torna dependente. A segunda te torna melhor.
+A diferença entre "copiei e colei a resposta da IA" e "pedi pra IA me explicar, entendi, e depois fiz eu mesmo" é enorme. A primeira te torna dependente. A segunda te torna melhor.
 
-Se você tá usando Copilot/Cursor e não entende o que ele tá gerando — pare. Leia. Pergunte "por quê?". Depois aceite.
+Se você tá pedindo pro ChatGPT fazer seu trabalho e só dando Ctrl+V — para. Lê a resposta. Pergunta "por quê?". Aí sim usa.
 
-#IA #Dev #Programação #Carreira #Estudo
+IA é academia pro cérebro. Mas só se VOCÊ levantar o peso.
+
+#IA #Produtividade #Carreira #Trabalho #HotTake
 
 ---
 

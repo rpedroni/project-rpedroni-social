@@ -4,23 +4,23 @@ Copy-paste ready for Instagram.
 
 ---
 
-## #001 — Cursor
+## #001 — ChatGPT
 
-🤖 IA do Dia #001 — Cursor
+🤖 IA do Dia #001 — ChatGPT
 
-O editor de código que lê seu projeto inteiro e completa código como se fosse seu colega sênior.
+Você provavelmente já usa. Mas usa 10% do que ele faz.
 
-Cursor é basicamente o VS Code turbinado com IA. Não é só autocomplete — ele entende o CONTEXTO do seu projeto. Refatora funções, escreve testes, explica código legado.
+ChatGPT não é só "pergunta e resposta". Ele analisa planilhas, lê PDFs, gera imagens, escreve na sua voz, e cria assistentes personalizados (GPTs) pra qualquer tarefa repetitiva.
 
-Uso todo dia e é a ferramenta que mais impacta minha produtividade.
+Minha dica: para de usar ele como Google. Começa a usar como um estagiário genial — dá contexto, pede pra revisar, manda ele refazer. A qualidade sobe 10x.
 
-Veredito: se você programa profissionalmente, vale cada centavo dos $20/mês.
+Versão grátis já é absurda. O Plus ($20/mês) vale se você usa todo dia pro trabalho.
 
-Se não programa? Pula pro próximo post. 😄
+Veredito: a canivete suíço da IA. Não é a melhor em nada, mas é boa em quase tudo.
 
-🔗 cursor.com
+🔗 chatgpt.com
 
-#IA #Cursor #Programação #Dev #Ferramentas
+#IA #ChatGPT #Produtividade #Ferramentas #Dicas
 
 ---
 
