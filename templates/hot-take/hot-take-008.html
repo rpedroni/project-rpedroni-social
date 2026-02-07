@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  background: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(255, 60, 60, 0.015) 40px,
+    rgba(255, 60, 60, 0.015) 42px
+  );
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  left: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 60, 60, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.flame-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #ff3c3c;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 50px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 60, 60, 0.2);
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.flame-badge .emoji {
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.take {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  color: #f5f5f5;
+}
+
+.take .hot {
+  color: #ff3c3c;
+}
+
+.take .gold {
+  color: #ffd700;
+}
+
+.divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff3c3c, #ffd700);
+  border-radius: 2px;
+}
+
+.context {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #737373;
+}
+
+.context strong {
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.stat-callout {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 80px;
+  font-weight: 600;
+  color: rgba(255, 60, 60, 0.08);
+  position: absolute;
+  top: 100px;
+  right: 60px;
+  line-height: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  right: 80px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rp-icon {
+  width: 44px;
+  height: 44px;
+  background: #ffd700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.author-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #ffd700;
+}
+
+.series {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #333;
+}
+</style>
+</head>
+<body>
+  <div class="stat-callout">ROI?</div>
+
+  <div class="flame-badge">
+    <span class="emoji">🔥</span>
+    <span>hot take</span>
+  </div>
+
+  <div class="content">
+    <div class="take">A maioria dos <span class="hot">investimentos em IA</span> tá falhando. CEOs esperam crescimento, o <span class="gold">ROI não aparece</span>.</div>
+    <div class="divider"></div>
+    <div class="context">Harvard Business Review (Fev 2026): empresas jogando milhões em IA sem estratégia. O problema não é a tecnologia — é <strong>comprar solução sem entender o problema</strong>.</div>
+  </div>
+
+  <div class="footer">
+    <div class="author">
+      <div class="rp-icon">RP</div>
+      <div class="author-text">@rpedroni</div>
+    </div>
+    <div class="series">hot take — 008</div>
+  </div>
+</body>
+</html>
