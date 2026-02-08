@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>📈 Week 2 — @rpedroni</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a;
+      --card: #161616;
+      --border: rgba(255,255,255,0.08);
+      --accent: #06d6a0;
+      --hot: #ff6b6b;
+      --ia: #4ecdc4;
+      --licao: #a78bfa;
+      --text: #fff;
+      --dim: #777;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .sub { color: var(--dim); font-size: 0.85rem; margin-bottom: 20px; }
+    .day-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .day-card.today {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(6, 214, 160, 0.1);
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .day-label { font-weight: 700; font-size: 0.9rem; }
+    .format-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .format-hot { background: rgba(255,107,107,0.15); color: var(--hot); }
+    .format-ia { background: rgba(78,205,196,0.15); color: var(--ia); }
+    .format-licao { background: rgba(167,139,250,0.15); color: var(--licao); }
+    .post-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .post-file { font-size: 0.75rem; color: var(--dim); font-family: monospace; margin-bottom: 10px; }
+    .caption-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      display: none;
+      position: relative;
+    }
+    .caption-box.show { display: block; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.1); }
+    .btn-copy {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-weight: 600;
+    }
+    .btn-copy.copied { background: #4ecdc4; }
+    .checklist {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 0.8rem;
+      color: var(--dim);
+    }
+    .check-item input[type="checkbox"] { accent-color: var(--accent); }
+    .check-item.done { text-decoration: line-through; opacity: 0.5; }
+    .times {
+      text-align: center;
+      padding: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+    }
+    .times strong { color: var(--accent); }
+    .progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .progress-dot {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+    .progress-dot.done { background: var(--accent); }
+    .progress-dot.current { background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .week-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+    }
+    .week-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      padding: 4px 8px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .week-nav a:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="week-nav">
+    <a href="launch-week1.html">← Week 1</a>
+    <span style="color: var(--dim);">Week 2 of content</span>
+    <span></span>
+  </div>
+
+  <h1>📈 Week 2 — @rpedroni</h1>
+  <p class="sub">Feb 16–22, 2026 • Building momentum</p>
+
+  <div class="progress" id="progress">
+    <div class="progress-dot" data-day="0"></div>
+    <div class="progress-dot" data-day="1"></div>
+    <div class="progress-dot" data-day="2"></div>
+    <div class="progress-dot" data-day="3"></div>
+    <div class="progress-dot" data-day="4"></div>
+    <div class="progress-dot" data-day="5"></div>
+    <div class="progress-dot" data-day="6"></div>
+  </div>
+
+  <div class="times">
+    Post between <strong>11:00–13:00</strong> or <strong>18:00–20:00</strong> BRT
+  </div>
+
+  <div id="cards"></div>
+
+  <script>
+    const schedule = [
+      {
+        day: 'SEG 16', format: 'hot', label: 'Hot Take',
+        title: '#004 — "Quem domina o ofício ganha 5x mais com IA"',
+        file: 'hot-take/hot-take-004.png',
+        caption: `🔥 Hot Take #004
+
+Quem domina o seu ofício ganha 5x mais produtividade com IA do que um iniciante.
+
+IA amplifica competência, não substitui. Quanto mais você sabe, mais a ferramenta entrega.
+
+O iniciante pede "faz uma apresentação sobre vendas" e aceita qualquer coisa. O experiente pede "faz uma apresentação sobre vendas B2B SaaS, focando em objeções de preço, com dados do mercado brasileiro, e um slide de ROI com exemplo real" — porque ele sabe o que uma apresentação BOA precisa ter.
+
+O gap não está na ferramenta. Está no conhecimento de quem usa.
+
+Invista em aprender seu ofício profundamente. A IA vai multiplicar isso.
+
+#IA #Carreira #Produtividade #Expertise #HotTake`
+      },
+      {
+        day: 'TER 17', format: 'ia', label: 'IA do Dia',
+        title: '#003 — ElevenLabs',
+        file: 'ia-do-dia/003-hq.png',
+        caption: `🤖 IA do Dia #003 — ElevenLabs
+
+Grava 30 segundos da sua voz. A IA clona. Agora você pode "falar" em 29 idiomas sem abrir a boca.
+
+Uso no dia a dia pra gerar áudios de WhatsApp, narrar vídeos, e até trollar amigos. A qualidade em português brasileiro é impressionante.
+
+O lado assustador: qualquer pessoa pode clonar qualquer voz. O potencial de golpe é real. Use com responsabilidade.
+
+Dica: o plano de $5/mês é suficiente pra maioria das pessoas.
+
+🔗 elevenlabs.io
+
+#IA #ElevenLabs #Voz #TextToSpeech #Deepfake #Ferramentas`
+      },
+      {
+        day: 'QUA 18', format: 'hot', label: 'Hot Take',
+        title: '#006 — "95% dos produtos de IA são wrappers"',
+        file: 'hot-take/hot-take-006.png',
+        caption: `🔥 Hot Take #006
+
+95% dos "produtos de IA" que você vê são o ChatGPT com outra roupa.
+
+Sério. A maioria das startups de IA pega a mesma tecnologia (GPT, Claude, Gemini), coloca uma interface bonita por cima, e cobra uma mensalidade.
+
+É tipo comprar água da torneira em garrafa de vidro artesanal.
+
+Algumas realmente agregam valor — integram com ferramentas específicas, automatizam workflows, resolvem problemas reais. Mas antes de pagar R$99/mês num app de IA, pergunta: "Será que eu não consigo fazer isso direto no ChatGPT?"
+
+Em 95% das vezes, a resposta é sim.
+
+#IA #Startups #Tecnologia #ChatGPT #HotTake`
+      },
+      {
+        day: 'QUI 19', format: 'licao', label: 'Lição de IA',
+        title: '#004 — Alucinação',
+        file: 'licao-de-ia/004-hq.png',
+        caption: `🤖 Lição de IA #004
+
+Alucinação: quando a IA inventa uma resposta com 100% de confiança e 0% de verdade.
+
+Isso acontece porque LLMs são máquinas de previsão de texto. Eles preveem a PRÓXIMA PALAVRA mais provável. Não verificam se é verdade.
+
+É tipo aquele colega que sempre tem uma resposta na hora do almoço, conta com convicção total, e 30% das vezes tá inventando.
+
+Regra de ouro: quanto mais específica a informação (datas, números, citações, código), mais você precisa verificar.
+
+Nunca confie cegamente. Sempre verifique.
+
+#IA #Alucinação #ChatGPT #Dicas #FactCheck`
+      },
+      {
+        day: 'SEX 20', format: 'ia', label: 'IA do Dia',
+        title: '#005 — v0',
+        file: 'ia-do-dia/005-hq.png',
+        caption: `🤖 IA do Dia #005 — v0
+
+"Me faz uma landing page com seção de preços, depoimentos e CTA animado."
+
+5 minutos depois: tá pronta. Código React real. Deploy no Vercel em 1 clique.
+
+v0 da Vercel é a melhor ferramenta de prototipagem com IA que existe. Não gera wireframe — gera código funcional com design bonito (usa shadcn/ui por baixo).
+
+Pra devs: acelera prototipagem absurdamente.
+Pra não-devs: finalmente dá pra validar ideia sem contratar dev.
+
+O código não é production-ready, mas pra MVP? É ouro.
+
+🔗 v0.dev
+
+#IA #v0 #Vercel #React #Programação #Protótipo #Ferramentas`
+      },
+      {
+        day: 'SÁB 21', format: 'hot', label: 'Hot Take',
+        title: '#007 — "Prompt engineering morreu"',
+        file: 'hot-take/hot-take-007.png',
+        caption: `🔥 Hot Take #007
+
+"Prompt engineer" era o emprego do futuro em 2023. Em 2026, ninguém mais precisa disso.
+
+Os modelos ficaram bons demais. Você não precisa mais de truques ("aja como um expert em..."). Basta explicar o que quer em linguagem normal.
+
+O que ERA skill de prompt engineering virou feature do produto. ChatGPT já pergunta o que você precisa, já pede contexto, já reformula a resposta.
+
+A skill que sobrevive: saber O QUE perguntar, não COMO perguntar.
+
+Se alguém te oferecer certificado de "prompt engineer" em 2026 — corre.
+
+#IA #PromptEngineering #Carreira #Futuro #HotTake`
+      },
+      {
+        day: 'DOM 22', format: 'ia', label: 'IA do Dia',
+        title: '#004 — NotebookLM',
+        file: 'ia-do-dia/004-hq.png',
+        caption: `🤖 IA do Dia #004 — NotebookLM
+
+Cola um PDF, um artigo, um doc — e o NotebookLM transforma em um podcast de 10 minutos. Dois "hosts" discutem o conteúdo de forma natural, como se fossem humanos.
+
+Mas o melhor uso não é o podcast. É como tutor.
+
+Subi um contrato de 40 páginas, perguntei "quais cláusulas me prejudicam?" — em 30 segundos tinha a resposta com citação exata do parágrafo.
+
+Pra quem estuda, pesquisa ou precisa digerir documentos densos: é obrigatório.
+
+E é grátis. Por enquanto.
+
+🔗 notebooklm.google.com
+
+#IA #NotebookLM #Google #Estudo #Pesquisa #Ferramentas`
+      }
+    ];
+
+    const container = document.getElementById('cards');
+    const startDate = new Date(2026, 1, 16); // Feb 16
+    const now = new Date();
+    const dayIndex = Math.floor((now - startDate) / 86400000);
+
+    // Progress dots
+    document.querySelectorAll('.progress-dot').forEach(dot => {
+      const d = parseInt(dot.dataset.day);
+      if (d < dayIndex) dot.classList.add('done');
+      else if (d === dayIndex) dot.classList.add('current');
+    });
+
+    schedule.forEach((post, i) => {
+      const isToday = i === dayIndex;
+      const card = document.createElement('div');
+      card.className = `day-card${isToday ? ' today' : ''}`;
+      card.innerHTML = `
+        <div class="day-header">
+          <span class="day-label">${isToday ? '📍 HOJE — ' : ''}${post.day}</span>
+          <span class="format-badge format-${post.format}">${post.label}</span>
+        </div>
+        <div class="post-title">${post.title}</div>
+        <div class="post-file">📁 outputs/${post.file}</div>
+        <button class="btn" onclick="toggleCaption(${i})">📋 Ver legenda</button>
+        <div class="caption-box" id="caption-${i}">
+          <button class="btn btn-copy" onclick="copyCaption(${i}, event)">Copiar</button>
+          ${post.caption}
+        </div>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Upload imagem no Instagram</label>
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Colar legenda</label>
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Compartilhar nos Stories</label>
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Responder primeiros comentários (1h)</label>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    function toggleCaption(i) {
+      document.getElementById(`caption-${i}`).classList.toggle('show');
+    }
+
+    function copyCaption(i, e) {
+      e.stopPropagation();
+      const text = schedule[i].caption;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = e.target;
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    // Scroll to today
+    const todayCard = document.querySelector('.day-card.today');
+    if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  </script>
+</body>
+</html>
