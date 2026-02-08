@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>📊 Week 1 Metrics Tracker — @rpedroni</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --card: #161616;
+      --border: #222;
+      --primary: #ffd700;
+      --accent: #06d6a0;
+      --red: #ff4757;
+      --blue: #4ecdc4;
+      --text: #f5f5f5;
+      --dim: #666;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 8px; }
+    .subtitle { color: var(--dim); font-size: 0.9rem; margin-bottom: 32px; }
+    
+    /* Summary Cards */
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-card .label { font-size: 0.7rem; text-transform: uppercase; color: var(--dim); letter-spacing: 1px; margin-bottom: 4px; }
+    .stat-card .value { font-family: 'JetBrains Mono'; font-size: 1.6rem; font-weight: 700; }
+    .stat-card .trend { font-size: 0.75rem; margin-top: 4px; }
+    .up { color: var(--accent); }
+    .down { color: var(--red); }
+    
+    /* Day rows */
+    .day-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .day-header:hover { background: rgba(255,215,0,0.03); }
+    .day-title { font-weight: 700; font-size: 1rem; }
+    .day-tag {
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag-hottake { background: rgba(255,71,87,0.15); color: var(--red); }
+    .tag-iadodia { background: rgba(78,205,196,0.15); color: var(--blue); }
+    .tag-licao { background: rgba(255,215,0,0.15); color: var(--primary); }
+    
+    .day-body { padding: 0 20px 20px; display: none; }
+    .day-card.open .day-body { display: block; }
+    .day-card.open .day-header { border-bottom: 1px solid var(--border); }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .metric label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--dim);
+      letter-spacing: 0.5px;
+    }
+    .metric input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-family: 'JetBrains Mono';
+      font-size: 0.9rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .metric input:focus { border-color: var(--primary); }
+    .metric input::placeholder { color: var(--dim); }
+    
+    .notes-row { margin-top: 12px; }
+    .notes-row textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-family: 'DM Sans';
+      font-size: 0.85rem;
+      resize: vertical;
+      min-height: 60px;
+      outline: none;
+    }
+    .notes-row textarea:focus { border-color: var(--primary); }
+    .notes-row textarea::placeholder { color: var(--dim); }
+    
+    /* Chart */
+    .chart-section { margin-top: 32px; }
+    .chart-section h2 { font-size: 1.2rem; margin-bottom: 16px; }
+    .chart-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      height: 300px;
+      position: relative;
+    }
+    .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 220px; padding-top: 20px; }
+    .bar-group { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+    .bar {
+      width: 30px;
+      background: var(--primary);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease;
+      min-height: 2px;
+      position: relative;
+    }
+    .bar.sends { background: var(--accent); }
+    .bar.saves { background: var(--blue); }
+    .bar-label { font-size: 0.65rem; color: var(--dim); text-align: center; }
+    .bar-value { font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--text); text-align: center; }
+    
+    .chart-legend { display: flex; gap: 16px; justify-content: center; margin-top: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--dim); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+    
+    /* KPI highlight */
+    .kpi-box {
+      background: rgba(6, 214, 160, 0.08);
+      border: 1px solid rgba(6, 214, 160, 0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 24px;
+      text-align: center;
+    }
+    .kpi-box .kpi-label { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+    .kpi-box .kpi-value { font-family: 'JetBrains Mono'; font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .kpi-box .kpi-sub { font-size: 0.8rem; color: var(--dim); margin-top: 4px; }
+    
+    .save-status {
+      text-align: center;
+      padding: 12px;
+      font-size: 0.8rem;
+      color: var(--dim);
+    }
+    .save-status.saved { color: var(--accent); }
+    
+    @media (max-width: 600px) {
+      body { padding: 16px; }
+      h1 { font-size: 1.4rem; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .bar { width: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Week 1 — @rpedroni</h1>
+    <p class="subtitle">Feb 9-15, 2026 • Metrics Tracker</p>
+    
+    <div class="summary" id="summary-cards"></div>
+    
+    <div id="days-container"></div>
+    
+    <div class="chart-section">
+      <h2>📈 Daily Sends (the KPI that matters)</h2>
+      <div class="chart-container">
+        <div class="bar-chart" id="bar-chart"></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Sends</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Saves</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--primary)"></div> Reach</div>
+        </div>
+      </div>
+      
+      <div class="kpi-box">
+        <div class="kpi-label">⚡ Sends per Reach (avg)</div>
+        <div class="kpi-value" id="kpi-spr">—</div>
+        <div class="kpi-sub">Target: >2% • Instagram's #1 ranking signal in 2026</div>
+      </div>
+    </div>
+    
+    <div class="save-status" id="save-status">Auto-saves to localStorage</div>
+  </div>
+
+  <script>
+    const DAYS = [
+      { day: 'Mon 9',  type: 'hottake', label: '🔥 Hot Take #001', title: 'IA pra e-mail de 3 linhas' },
+      { day: 'Tue 10', type: 'iadodia', label: '🤖 IA do Dia #001', title: 'ChatGPT' },
+      { day: 'Wed 11', type: 'licao',   label: '📚 Lição de IA #001', title: 'IA vai roubar seu emprego' },
+      { day: 'Thu 12', type: 'hottake', label: '🔥 Hot Take #002', title: 'Devs -17% com IA passiva' },
+      { day: 'Fri 13', type: 'iadodia', label: '🤖 IA do Dia #002', title: 'Perplexity' },
+      { day: 'Sat 14', type: 'licao',   label: '📚 Lição de IA #002', title: 'TBD' },
+      { day: 'Sun 15', type: 'hottake', label: '🔥 Hot Take #003', title: 'Cursos de prompt = R$2k' },
+    ];
+
+    const METRICS = ['reach', 'likes', 'comments', 'saves', 'sends', 'profile_visits', 'follows'];
+    const METRIC_LABELS = { reach: 'Reach', likes: 'Likes', comments: 'Comments', saves: 'Saves', sends: 'Sends/Shares', profile_visits: 'Profile Visits', follows: 'Follows' };
+    
+    const STORAGE_KEY = 'rpedroni-week1-metrics';
+    
+    function loadData() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+    }
+    
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const el = document.getElementById('save-status');
+      el.textContent = '✅ Saved';
+      el.className = 'save-status saved';
+      setTimeout(() => { el.textContent = 'Auto-saves to localStorage'; el.className = 'save-status'; }, 2000);
+    }
+    
+    function renderDays() {
+      const container = document.getElementById('days-container');
+      const data = loadData();
+      
+      DAYS.forEach((day, i) => {
+        const key = `day${i}`;
+        const dayData = data[key] || {};
+        
+        const card = document.createElement('div');
+        card.className = 'day-card' + (i === 0 ? ' open' : '');
+        
+        card.innerHTML = `
+          <div class="day-header" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <span class="day-title">${day.day} — ${day.label}</span>
+              <span style="color:var(--dim);font-size:0.85rem;margin-left:8px">${day.title}</span>
+            </div>
+            <span class="day-tag tag-${day.type}">${day.type === 'hottake' ? 'Hot Take' : day.type === 'iadodia' ? 'IA do Dia' : 'Lição'}</span>
+          </div>
+          <div class="day-body">
+            <div class="metrics-grid">
+              ${METRICS.map(m => `
+                <div class="metric">
+                  <label>${METRIC_LABELS[m]}</label>
+                  <input type="number" data-day="${key}" data-metric="${m}" 
+                    value="${dayData[m] || ''}" placeholder="0"
+                    oninput="updateMetric('${key}','${m}',this.value)">
+                </div>
+              `).join('')}
+            </div>
+            <div class="notes-row">
+              <div class="metric">
+                <label>Notes / Learnings</label>
+                <textarea data-day="${key}" data-metric="notes" 
+                  placeholder="What worked? What didn't? DMs? Interesting comments?"
+                  oninput="updateMetric('${key}','notes',this.value)">${dayData.notes || ''}</textarea>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+    
+    function updateMetric(day, metric, value) {
+      const data = loadData();
+      if (!data[day]) data[day] = {};
+      data[day][metric] = metric === 'notes' ? value : (parseInt(value) || 0);
+      saveData(data);
+      updateSummary();
+      updateChart();
+    }
+    
+    function updateSummary() {
+      const data = loadData();
+      const container = document.getElementById('summary-cards');
+      
+      let totals = {};
+      METRICS.forEach(m => totals[m] = 0);
+      let daysWithData = 0;
+      
+      DAYS.forEach((_, i) => {
+        const d = data[`day${i}`];
+        if (d && (d.reach || d.sends)) {
+          daysWithData++;
+          METRICS.forEach(m => totals[m] += (d[m] || 0));
+        }
+      });
+      
+      const avgReach = daysWithData > 0 ? Math.round(totals.reach / daysWithData) : 0;
+      const spr = totals.reach > 0 ? ((totals.sends / totals.reach) * 100).toFixed(1) : '—';
+      
+      container.innerHTML = `
+        <div class="stat-card">
+          <div class="label">Total Reach</div>
+          <div class="value">${totals.reach.toLocaleString()}</div>
+          <div class="trend">${daysWithData} day${daysWithData !== 1 ? 's' : ''} tracked</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Avg Reach</div>
+          <div class="value">${avgReach.toLocaleString()}</div>
+          <div class="trend">target: >500</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total Sends</div>
+          <div class="value" style="color:var(--accent)">${totals.sends.toLocaleString()}</div>
+          <div class="trend">the #1 metric</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Sends/Reach</div>
+          <div class="value" style="color:${spr !== '—' && parseFloat(spr) >= 2 ? 'var(--accent)' : spr !== '—' && parseFloat(spr) >= 0.5 ? 'var(--primary)' : 'var(--red)'}">${spr}${spr !== '—' ? '%' : ''}</div>
+          <div class="trend">target: >2%</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total Saves</div>
+          <div class="value" style="color:var(--blue)">${totals.saves.toLocaleString()}</div>
+          <div class="trend">quality signal</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">New Follows</div>
+          <div class="value">${totals.follows.toLocaleString()}</div>
+          <div class="trend">growth</div>
+        </div>
+      `;
+    }
+    
+    function updateChart() {
+      const data = loadData();
+      const chart = document.getElementById('bar-chart');
+      const kpiEl = document.getElementById('kpi-spr');
+      
+      let maxReach = 1;
+      DAYS.forEach((_, i) => {
+        const d = data[`day${i}`] || {};
+        if ((d.reach || 0) > maxReach) maxReach = d.reach;
+      });
+      
+      let totalSends = 0, totalReach = 0;
+      
+      chart.innerHTML = DAYS.map((day, i) => {
+        const d = data[`day${i}`] || {};
+        const reach = d.reach || 0;
+        const sends = d.sends || 0;
+        const saves = d.saves || 0;
+        
+        totalSends += sends;
+        totalReach += reach;
+        
+        const maxH = 180;
+        const reachH = maxReach > 0 ? (reach / maxReach) * maxH : 2;
+        const sendsH = maxReach > 0 ? (sends / maxReach) * maxH * 5 : 2; // Amplified for visibility
+        const savesH = maxReach > 0 ? (saves / maxReach) * maxH * 3 : 2;
+        
+        return `
+          <div class="bar-group">
+            <div class="bar-value">${sends > 0 ? sends : ''}</div>
+            <div style="display:flex;gap:3px;align-items:flex-end;height:${maxH}px">
+              <div class="bar" style="height:${Math.max(2, Math.min(maxH, reachH))}px"></div>
+              <div class="bar sends" style="height:${Math.max(2, Math.min(maxH, sendsH))}px"></div>
+              <div class="bar saves" style="height:${Math.max(2, Math.min(maxH, savesH))}px"></div>
+            </div>
+            <div class="bar-label">${day.day.split(' ')[0]}</div>
+          </div>
+        `;
+      }).join('');
+      
+      const spr = totalReach > 0 ? ((totalSends / totalReach) * 100).toFixed(1) + '%' : '—';
+      kpiEl.textContent = spr;
+    }
+    
+    // Init
+    renderDays();
+    updateSummary();
+    updateChart();
+  </script>
+</body>
+</html>
