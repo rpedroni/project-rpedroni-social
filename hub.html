@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hub de Postagens — @rpedroni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: rgba(255,255,255,0.08);
+      --gold: #ffd700;
+      --text: #fff;
+      --dim: #888;
+      --hot: #ff6b6b;
+      --ia: #4ecdc4;
+      --licao: #a78bfa;
+      --success: #06d6a0;
+    }
+    
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Password Gate */
+    #password-gate {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    
+    #password-gate.hidden {
+      display: none;
+    }
+    
+    #password-gate h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+    
+    #password-gate p {
+      color: var(--dim);
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+    
+    #password-gate input {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      text-align: center;
+    }
+    
+    #password-gate input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    
+    #password-gate .error {
+      color: var(--hot);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+    
+    #password-gate .error.show {
+      display: block;
+    }
+    
+    /* Main Content */
+    #app {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+    
+    header p {
+      color: var(--dim);
+      font-size: 0.9rem;
+    }
+    
+    /* Today's Post */
+    .today-section {
+      margin-bottom: 48px;
+    }
+    
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--dim);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .post-card.today {
+      border-color: var(--gold);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+    }
+    
+    .post-card.posted {
+      border-color: var(--success);
+    }
+    
+    .post-header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .post-date {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .format-badge {
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .format-hot { background: rgba(255,107,107,0.15); color: var(--hot); }
+    .format-ia { background: rgba(78,205,196,0.15); color: var(--ia); }
+    .format-licao { background: rgba(167,139,250,0.15); color: var(--licao); }
+    
+    .post-status {
+      font-size: 0.85rem;
+      color: var(--dim);
+    }
+    
+    .post-status.posted {
+      color: var(--success);
+      font-weight: 600;
+    }
+    
+    .post-image {
+      width: 100%;
+      background: #000;
+      position: relative;
+      min-height: 200px;
+    }
+    
+    .post-image img {
+      width: 100%;
+      display: block;
+    }
+    
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    
+    .carousel-track img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .carousel-dot.active {
+      background: var(--gold);
+    }
+    
+    .post-body {
+      padding: 16px;
+    }
+    
+    .post-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    .post-file {
+      font-size: 0.75rem;
+      color: var(--dim);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 16px;
+    }
+    
+    .caption-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      margin-bottom: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .caption-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .caption-box::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+    }
+    
+    .caption-box::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--gold);
+    }
+    
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+    
+    .btn-primary:hover {
+      background: #ffed4e;
+    }
+    
+    .btn-success {
+      background: var(--success);
+      color: #000;
+      border-color: var(--success);
+    }
+    
+    .btn-success:hover {
+      background: #08ffba;
+    }
+    
+    /* Timeline */
+    .timeline {
+      margin-bottom: 40px;
+    }
+    
+    .timeline-grid {
+      display: grid;
+      gap: 12px;
+    }
+    
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .timeline-card:hover {
+      border-color: var(--gold);
+      background: rgba(255, 215, 0, 0.03);
+    }
+    
+    .timeline-card.past {
+      opacity: 0.6;
+    }
+    
+    .timeline-card.posted {
+      border-color: var(--success);
+      background: rgba(6, 214, 160, 0.05);
+    }
+    
+    .timeline-card.future {
+      opacity: 0.4;
+    }
+    
+    .timeline-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #000;
+    }
+    
+    .timeline-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .timeline-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--dim);
+      font-weight: 600;
+    }
+    
+    .timeline-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    
+    .timeline-card.posted .timeline-title::after {
+      content: " ✅";
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    
+    .modal.show {
+      display: flex;
+    }
+    
+    .modal-content {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    
+    .modal-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .modal-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    @media (max-width: 600px) {
+      #app {
+        padding: 16px;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Gate -->
+  <div id="password-gate">
+    <h1>🔒 Hub de Postagens</h1>
+    <p>Digite a senha para acessar</p>
+    <input type="password" id="password-input" placeholder="senha" autocomplete="off">
+    <div class="error" id="password-error">Senha incorreta</div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" style="display: none;">
+    <header>
+      <h1>📱 Hub de Postagens</h1>
+      <p>@rpedroni — Gestão de Conteúdo Diário</p>
+    </header>
+
+    <!-- Today's Post -->
+    <section class="today-section">
+      <div class="section-title">📍 Post de Hoje</div>
+      <div id="today-post"></div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline">
+      <div class="section-title">📅 Timeline Completa</div>
+      <div class="timeline-grid" id="timeline"></div>
+    </section>
+  </div>
+
+  <!-- Modal for Expanded Post -->
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-content" id="modal-content"></div>
+  </div>
+
+  <script>
+    // Content Data
+    const POSTS = [
+      {
+        date: '2026-02-09',
+        format: 'hot',
+        emoji: '🔥',
+        title: 'Hot Take #001 — "IA pra e-mail de 3 linhas"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/hot-take/hot-take-001.png'],
+        caption: `🔥 Hot Take #001
+
+Se você precisa de IA pra escrever um e-mail de 3 linhas, o problema não é produtividade.
+
+O gap de comunicação não se resolve com autocomplete. Se resolve com clareza de pensamento.
+
+Antes de abrir o ChatGPT, tenta pensar 30 segundos no que você quer dizer. Se conseguir — parabéns, você não precisava de IA. Se não conseguir — o problema é maior do que qualquer ferramenta resolve.
+
+IA é um amplificador. Se você não sabe o que quer comunicar, ela amplifica a confusão.
+
+#IA #Comunicação #Produtividade #HotTake #Reflexão`
+      },
+      {
+        date: '2026-02-10',
+        format: 'ia',
+        emoji: '🤖',
+        title: 'IA do Dia #001 — ChatGPT',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/ia-do-dia/001-chatgpt-hq.png'],
+        caption: `🤖 IA do Dia #001 — ChatGPT
+
+Você provavelmente já usa. Mas usa 10% do que ele faz.
+
+ChatGPT não é só "pergunta e resposta". Ele analisa planilhas, lê PDFs, gera imagens, escreve na sua voz, e cria assistentes personalizados (GPTs) pra qualquer tarefa repetitiva.
+
+Minha dica: para de usar ele como Google. Começa a usar como um estagiário genial — dá contexto, pede pra revisar, manda ele refazer. A qualidade sobe 10x.
+
+Versão grátis já é absurda. O Plus ($20/mês) vale se você usa todo dia pro trabalho.
+
+Veredito: a canivete suíço da IA. Não é a melhor em nada, mas é boa em quase tudo.
+
+🔗 chatgpt.com
+
+#IA #ChatGPT #Produtividade #Ferramentas #Dicas`
+      },
+      {
+        date: '2026-02-11',
+        format: 'licao',
+        emoji: '📚',
+        title: 'Lição de IA #001 — "IA vai roubar seu emprego"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/licao-de-ia/001-v3-hq.png'],
+        caption: `🤖 Lição de IA #001
+
+Todo mundo repete essa frase: "a IA não vai roubar seu emprego, quem usa IA vai."
+
+Mas será?
+
+Na real, depende do emprego. Se o que você faz é repetitivo, previsível, template-based — sim, a IA já está fazendo. Não "vai fazer". Já faz.
+
+Mas se você PENSA, se você toma decisões com contexto, se você entende o POR QUÊ — aí é diferente.
+
+A lição de verdade: não basta "usar a IA". Tem que entender o suficiente pra saber quando ela tá errada.
+
+Salva esse post. Semana que vem tem mais. 🦆
+
+#IA #InteligenciaArtificial #Tecnologia #Carreira #FuturoDoTrabalho`
+      },
+      {
+        date: '2026-02-12',
+        format: 'hot',
+        emoji: '🔥',
+        title: 'Hot Take #002 — "Produtividade com IA"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/hot-take/hot-take-002.png'],
+        caption: `🔥 Hot Take #002
+
+Profissionais que usam IA passivamente sabem 17% MENOS que quem não usa.
+
+Estudo da Anthropic (Jan 2026): aceitar tudo que a IA gera sem pensar te atrofia. Usar IA pra ENTENDER melhor o que você faz, não.
+
+A diferença entre "copiei a resposta do ChatGPT e colei no e-mail" e "pedi pro ChatGPT me ajudar a pensar, entendi a lógica, e escrevi eu mesmo" é enorme. A primeira te torna dependente. A segunda te torna melhor.
+
+Funciona igual pra tudo: relatório, proposta, análise, apresentação. Se você tá só dando Ctrl+V — para. Lê a resposta. Pergunta "por quê?". Aí sim usa.
+
+IA é academia pro cérebro. Mas só se VOCÊ levantar o peso.
+
+#IA #Produtividade #Carreira #Trabalho #HotTake`
+      },
+      {
+        date: '2026-02-13',
+        format: 'ia',
+        emoji: '🤖',
+        title: 'IA do Dia #002 — Perplexity',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/ia-do-dia/002-hq.png'],
+        caption: `🤖 IA do Dia #002 — Perplexity
+
+Imagina se o Google entendesse sua pergunta de verdade, buscasse as melhores fontes, e te desse a resposta mastigada com referências.
+
+É o Perplexity.
+
+Pra pesquisas técnicas, substituiu o Google completamente no meu workflow. Pra perguntas tipo "melhor restaurante perto de mim" — ainda uso Google Maps. 😅
+
+Dica: a versão grátis já é ótima. Só paga se usar pesado (10+ pesquisas/dia).
+
+🔗 perplexity.ai
+
+#IA #Perplexity #Pesquisa #Google #Ferramentas`
+      },
+      {
+        date: '2026-02-14',
+        format: 'licao',
+        emoji: '📚',
+        title: 'Lição de IA #002 — Copy-paste coding',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/licao-de-ia/002-hq.png'],
+        caption: `🤖 Lição de IA #002
+
+Estudo da Anthropic (Jan 2026): devs que usam IA passivamente tiraram 17% MENOS em testes de competência.
+
+O problema não é usar IA. É usar sem pensar.
+
+Copiar código do ChatGPT ≠ programar. Copiar receita ≠ cozinhar. O valor tá em entender o que tá acontecendo.
+
+Pergunta "por quê?" pro ChatGPT. Peça pra explicar. Não aceite a primeira resposta.
+
+A IA é um tutor fenomenal — SE você fizer as perguntas certas.
+
+#IA #Programação #Dev #ChatGPT #Aprendizado`
+      },
+      {
+        date: '2026-02-15',
+        format: 'hot',
+        emoji: '🔥',
+        title: 'Hot Take #003 — "Cursos de prompt"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/hot-take/hot-take-003.png'],
+        caption: `🔥 Hot Take #003
+
+O melhor curso de IA custa R$0 e se chama "abrir o ChatGPT e tentar".
+
+Nenhum certificado substitui 30 dias usando a ferramenta no seu trabalho real. Ponto.
+
+Vi gente gastando R$2.000 em curso de prompt engineering pra aprender a escrever "aja como um especialista em...". Isso não é skill — é formato.
+
+A skill de verdade é saber QUAL problema resolver e COMO avaliar se a resposta tá boa. Isso vem de experiência no seu domínio, não de um PDF sobre prompts.
+
+Para de estudar IA. Começa a USAR IA.
+
+#IA #Cursos #Aprendizado #ChatGPT #HotTake`
+      },
+      {
+        date: '2026-02-16',
+        format: 'hot',
+        emoji: '🔥',
+        title: 'Hot Take #004 — "Melhores devs em 2030"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/hot-take/hot-take-004.png'],
+        caption: `🔥 Hot Take #004
+
+Quem domina o seu ofício ganha 5x mais produtividade com IA do que um iniciante.
+
+IA amplifica competência, não substitui. Quanto mais você sabe, mais a ferramenta entrega.
+
+O iniciante pede "faz uma apresentação sobre vendas" e aceita qualquer coisa. O experiente pede "faz uma apresentação sobre vendas B2B SaaS, focando em objeções de preço, com dados do mercado brasileiro, e um slide de ROI com exemplo real" — porque ele sabe o que uma apresentação BOA precisa ter.
+
+O gap não está na ferramenta. Está no conhecimento de quem usa.
+
+Invista em aprender seu ofício profundamente. A IA vai multiplicar isso.
+
+#IA #Carreira #Produtividade #Expertise #HotTake`
+      },
+      {
+        date: '2026-02-17',
+        format: 'ia',
+        emoji: '🤖',
+        title: 'IA do Dia #003 — ElevenLabs',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/ia-do-dia/003-hq.png'],
+        caption: `🤖 IA do Dia #003 — ElevenLabs
+
+Grava 30 segundos da sua voz. A IA clona. Agora você pode "falar" em 29 idiomas sem abrir a boca.
+
+Uso no dia a dia pra gerar áudios de WhatsApp, narrar vídeos, e até trollar amigos. A qualidade em português brasileiro é impressionante.
+
+O lado assustador: qualquer pessoa pode clonar qualquer voz. O potencial de golpe é real. Use com responsabilidade.
+
+Dica: o plano de $5/mês é suficiente pra maioria das pessoas.
+
+🔗 elevenlabs.io
+
+#IA #ElevenLabs #Voz #TextToSpeech #Deepfake #Ferramentas`
+      },
+      {
+        date: '2026-02-18',
+        format: 'hot',
+        emoji: '🔥',
+        title: 'Hot Take #006 — "95% wrappers"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/hot-take/hot-take-006.png'],
+        caption: `🔥 Hot Take #006
+
+95% dos "produtos de IA" que você vê são o ChatGPT com outra roupa.
+
+Sério. A maioria das startups de IA pega a mesma tecnologia (GPT, Claude, Gemini), coloca uma interface bonita por cima, e cobra uma mensalidade.
+
+É tipo comprar água da torneira em garrafa de vidro artesanal.
+
+Algumas realmente agregam valor — integram com ferramentas específicas, automatizam workflows, resolvem problemas reais. Mas antes de pagar R$99/mês num app de IA, pergunta: "Será que eu não consigo fazer isso direto no ChatGPT?"
+
+Em 95% das vezes, a resposta é sim.
+
+#IA #Startups #Tecnologia #ChatGPT #HotTake`
+      },
+      {
+        date: '2026-02-19',
+        format: 'licao',
+        emoji: '📚',
+        title: 'Lição de IA #004 — Alucinação',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/licao-de-ia/004-hq.png'],
+        caption: `🤖 Lição de IA #004
+
+Alucinação: quando a IA inventa uma resposta com 100% de confiança e 0% de verdade.
+
+Isso acontece porque LLMs são máquinas de previsão de texto. Eles preveem a PRÓXIMA PALAVRA mais provável. Não verificam se é verdade.
+
+É tipo aquele colega que sempre tem uma resposta na hora do almoço, conta com convicção total, e 30% das vezes tá inventando.
+
+Regra de ouro: quanto mais específica a informação (datas, números, citações, código), mais você precisa verificar.
+
+Nunca confie cegamente. Sempre verifique.
+
+#IA #Alucinação #ChatGPT #Dicas #FactCheck`
+      },
+      {
+        date: '2026-02-20',
+        format: 'ia',
+        emoji: '🤖',
+        title: 'IA do Dia #005 — v0',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/ia-do-dia/005-hq.png'],
+        caption: `🤖 IA do Dia #005 — v0
+
+"Cria uma landing page com formulário de contato, gradiente roxo, e botão amarelo"
+
+30 segundos depois você tem o código React pronto, rodando, responsivo.
+
+v0 by Vercel é ChatGPT focado em interfaces web. Gera componentes React + Tailwind + shadcn direto no navegador. Você edita visualmente ou por prompt.
+
+Perfeito pra protótipos, MVPs, e até features de produção se você souber revisar o código.
+
+Dica: funciona melhor quando você descreve VISUALMENTE o que quer, não tecnicamente.
+
+🔗 v0.dev
+
+#IA #Desenvolvimento #React #Web #Ferramentas`
+      },
+      {
+        date: '2026-02-21',
+        format: 'hot',
+        emoji: '🔥',
+        title: 'Hot Take #007 — "Prompt engineering morreu"',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/hot-take/hot-take-007.png'],
+        caption: `🔥 Hot Take #007
+
+"Prompt engineering" como profissão vai durar menos que NFT de macaco.
+
+Os modelos estão ficando tão bons que "escrever prompts" vai ser tão especial quanto "saber usar Google".
+
+Já consigo fazer com o Claude/GPT o que há 1 ano precisava de 5 prompts iterativos + contexto gigante + formatação específica. Hoje? Uma frase vaga e ele entende.
+
+O que vai valer NÃO é saber prompt. É saber O QUE PEDIR. Entender o domínio. Avaliar qualidade. Iterar com contexto.
+
+"Prompt engineer" vai ser só "engenheiro". E os que não souberem engenharia de verdade vão ficar sem cadeira.
+
+#IA #PromptEngineering #Carreira #Tech #HotTake`
+      },
+      {
+        date: '2026-02-22',
+        format: 'ia',
+        emoji: '🤖',
+        title: 'IA do Dia #004 — NotebookLM',
+        images: ['https://rpedroni.github.io/project-rpedroni-social/outputs/ia-do-dia/004-hq.png'],
+        caption: `🤖 IA do Dia #004 — NotebookLM
+
+Você solta 10 PDFs, 5 links, e um monte de notas. A IA lê tudo e vira um assistente pessoal que só sabe sobre aqueles documentos.
+
+Melhor parte: gera um PODCAST de 2 pessoas discutindo o conteúdo. É bizarramente bom.
+
+Uso pra resumir papers técnicos, consolidar pesquisas, e até revisar contratos.
+
+100% grátis. Made by Google. Zero hype, máxima utilidade.
+
+🔗 notebooklm.google
+
+#IA #NotebookLM #Pesquisa #Produtividade #Ferramentas`
+      }
+    ];
+
+    // Password Gate
+    const PASSWORD = 'pato123';
+    const passwordGate = document.getElementById('password-gate');
+    const passwordInput = document.getElementById('password-input');
+    const passwordError = document.getElementById('password-error');
+    const app = document.getElementById('app');
+
+    // Check session
+    if (sessionStorage.getItem('authenticated') === 'true') {
+      showApp();
+    }
+
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
+    function checkPassword() {
+      if (passwordInput.value === PASSWORD) {
+        sessionStorage.setItem('authenticated', 'true');
+        showApp();
+      } else {
+        passwordError.classList.add('show');
+        passwordInput.value = '';
+        setTimeout(() => passwordError.classList.remove('show'), 2000);
+      }
+    }
+
+    function showApp() {
+      passwordGate.classList.add('hidden');
+      app.style.display = 'block';
+      init();
+    }
+
+    // Main App Logic
+    function init() {
+      const today = new Date().toISOString().split('T')[0];
+      const todayPost = POSTS.find(p => p.date === today);
+
+      if (todayPost) {
+        renderTodayPost(todayPost);
+      } else {
+        document.querySelector('.today-section').innerHTML = `
+          <div class="section-title">📍 Post de Hoje</div>
+          <div class="post-card" style="padding: 32px; text-align: center; color: var(--dim);">
+            <p>Nenhum post programado para hoje</p>
+          </div>
+        `;
+      }
+
+      renderTimeline();
+    }
+
+    function renderTodayPost(post) {
+      const container = document.getElementById('today-post');
+      container.innerHTML = renderPostCard(post, true);
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timeline');
+      const today = new Date().toISOString().split('T')[0];
+
+      POSTS.forEach(post => {
+        const card = document.createElement('div');
+        const isPosted = localStorage.getItem(`posted-${post.date}`) === 'true';
+        const isPast = post.date < today;
+        const isFuture = post.date > today;
+
+        let className = 'timeline-card';
+        if (isPosted) className += ' posted';
+        else if (isPast) className += ' past';
+        else if (isFuture) className += ' future';
+
+        card.className = className;
+        card.onclick = () => openModal(post);
+
+        card.innerHTML = `
+          <div class="timeline-thumb">
+            <img src="${post.images[0]}" alt="${post.title}">
+          </div>
+          <div class="timeline-info">
+            <div class="timeline-date">${formatDate(post.date)} • ${post.emoji} ${post.format.toUpperCase()}</div>
+            <div class="timeline-title">${post.title}</div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function renderPostCard(post, isToday = false) {
+      const isPosted = localStorage.getItem(`posted-${post.date}`) === 'true';
+      const cardClass = `post-card ${isToday ? 'today' : ''} ${isPosted ? 'posted' : ''}`;
+
+      const imagesHtml = post.images.length > 1
+        ? renderCarousel(post.images, post.date)
+        : `<div class="post-image"><img src="${post.images[0]}" alt="${post.title}"></div>`;
+
+      const downloadHtml = post.images.length > 1
+        ? post.images.map((img, i) => 
+            `<a href="${img}" download class="btn">💾 Download ${i + 1}</a>`
+          ).join('')
+        : `<a href="${post.images[0]}" download class="btn">💾 Download</a>`;
+
+      return `
+        <div class="${cardClass}">
+          <div class="post-header">
+            <div class="post-meta">
+              <span class="post-date">${formatDate(post.date)}</span>
+              <span class="format-badge format-${post.format}">${post.emoji} ${post.format.toUpperCase()}</span>
+            </div>
+            <span class="post-status ${isPosted ? 'posted' : ''}">${isPosted ? 'Postado ✅' : 'Pendente'}</span>
+          </div>
+          ${imagesHtml}
+          <div class="post-body">
+            <div class="post-title">${post.title}</div>
+            <div class="post-file">📁 ${post.images[0].split('/outputs/')[1]}</div>
+            <div class="caption-box">${post.caption}</div>
+            <div class="actions">
+              <button class="btn btn-primary" onclick="copyCaption('${post.date}')">📋 Copiar Caption</button>
+              ${downloadHtml}
+              <button class="btn ${isPosted ? 'btn-success' : ''}" onclick="togglePosted('${post.date}')">
+                ${isPosted ? '✅ Postado' : '⭕ Marcar Postado'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCarousel(images, id) {
+      const trackId = `carousel-${id}`;
+      return `
+        <div class="post-image carousel">
+          <div class="carousel-track" id="${trackId}">
+            ${images.map(img => `<img src="${img}" alt="">`).join('')}
+          </div>
+          <div class="carousel-nav">
+            ${images.map((_, i) => 
+              `<div class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToSlide('${trackId}', ${i})"></div>`
+            ).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function goToSlide(trackId, index) {
+      const track = document.getElementById(trackId);
+      const dots = track.parentElement.querySelectorAll('.carousel-dot');
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    function copyCaption(date) {
+      const post = POSTS.find(p => p.date === date);
+      navigator.clipboard.writeText(post.caption).then(() => {
+        alert('✅ Caption copiada!');
+      });
+    }
+
+    function togglePosted(date) {
+      const currentStatus = localStorage.getItem(`posted-${date}`) === 'true';
+      localStorage.setItem(`posted-${date}`, !currentStatus);
+      location.reload();
+    }
+
+    function openModal(post) {
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modal-content');
+      content.innerHTML = renderPostCard(post);
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('show');
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr + 'T12:00:00');
+      const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+      const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+      return `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]}`;
+    }
+
+    // Close modal on click outside
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.id === 'modal') closeModal();
+    });
+
+    // Auto-focus password input
+    passwordInput.focus();
+  </script>
+</body>
+</html>
