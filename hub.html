@@ -177,6 +177,8 @@
     .format-licao { background: rgba(167,139,250,0.15); color: var(--licao); }
     .format-ideia { background: rgba(255,215,0,0.18); color: var(--gold); }
     .format-voce-ja { background: rgba(232,121,249,0.18); color: #e879f9; }
+    .format-build { background: rgba(6,214,160,0.18); color: #06d6a0; }
+    .format-caixa { background: rgba(245,158,11,0.18); color: #f59e0b; }
     
     .post-image-placeholder {
       width: 100%;
@@ -506,10 +508,17 @@
     <section style="margin-bottom: 32px;">
       <details style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
         <summary style="padding: 16px; cursor: pointer; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; list-style: none;">
-          <span>📊 Estratégia & Métricas</span>
+          <span>📊 Estratégia & Métricas (v3)</span>
           <span style="font-size: 0.7rem; color: var(--dim); margin-left: auto;">clique para expandir</span>
         </summary>
         <div style="padding: 0 16px 16px; font-size: 0.85rem; line-height: 1.8;">
+
+          <!-- Positioning -->
+          <div style="margin-bottom: 16px; background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2); border-radius: 8px; padding: 14px;">
+            <div style="font-weight: 700; color: var(--gold); font-size: 1rem; margin-bottom: 4px;">🎯 Posicionamento Central</div>
+            <div style="color: var(--text); font-size: 0.95rem; font-style: italic;">"Pare de aceitar problemas como normais. Questione. Idealize. Construa."</div>
+            <div style="color: var(--dim); margin-top: 6px; font-size: 0.8rem;">Tom: questionador, inconformado, direto, humor seco. NÃO informativo/neutro. Todo post TEM que ter a opinião pessoal do Ricardo.</div>
+          </div>
           
           <!-- IG Metrics Hierarchy -->
           <div style="margin-bottom: 16px;">
@@ -517,7 +526,7 @@
             <div style="display: grid; gap: 6px;">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="background: var(--gold); color: #000; font-weight: 700; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">1°</span>
-                <span><strong>Sends / Reach</strong> — compartilhamentos via DM. O sinal #1 de crescimento. (Adam Mosseri, 2025)</span>
+                <span><strong>Sends / Reach</strong> — compartilhamentos via DM. O sinal #1 de crescimento.</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="background: rgba(255,215,0,0.3); color: var(--gold); font-weight: 700; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">2°</span>
@@ -525,31 +534,72 @@
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="background: rgba(255,215,0,0.15); color: var(--dim); font-weight: 700; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">3°</span>
-                <span><strong>Saves</strong> — indicador de conteúdo "voltável". Carrosséis educacionais dominam.</span>
+                <span><strong>Saves</strong> — indicador de conteúdo "voltável".</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="background: rgba(255,255,255,0.05); color: var(--dim); font-weight: 700; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">4°</span>
-                <span><strong>Comments / Likes</strong> — ainda contam, mas peso menor que sends.</span>
+                <span><strong>Comments / Likes</strong> — peso menor que sends.</span>
               </div>
             </div>
           </div>
 
-          <!-- CTA Rotation -->
+          <!-- CTA Strategy v3 -->
           <div style="margin-bottom: 16px;">
-            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">💬 Rotação de CTAs</div>
+            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">💬 CTAs — Desafiar Conformismo</div>
             <div style="display: grid; gap: 8px;">
-              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-weight: 600; color: var(--ia);">🟢 Baixa Fricção</div>
-                <div style="color: var(--dim); margin-top: 2px;">"Nota de 1 a 10: essa ideia vale a pena?" — todo mundo opina, zero esforço</div>
+              <div style="background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: var(--hot);">🔥 CTA Universal</div>
+                <div style="color: var(--dim); margin-top: 2px;">"Você aceita isso como normal? Eu não." — provoca inconformismo, gera posicionamento</div>
               </div>
               <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-weight: 600; color: var(--hot);">🔴 Polarizante</div>
-                <div style="color: var(--dim); margin-top: 2px;">"Faria ou não faria?" — força posicionamento, gera debate nos comments</div>
+                <div style="font-weight: 600; color: var(--ia);">📬 Co-criação</div>
+                <div style="color: var(--dim); margin-top: 2px;">"O que te incomoda? Me conta que eu construo." — convida participação via Caixa de Ideias</div>
               </div>
               <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-weight: 600; color: var(--gold);">⭐ DM Sends (OURO)</div>
-                <div style="color: var(--dim); margin-top: 2px;">"Manda pra quem deveria fazer isso" — drives o sinal #1 do algoritmo</div>
+                <div style="font-weight: 600; color: var(--gold);">⭐ DM Sends</div>
+                <div style="color: var(--dim); margin-top: 2px;">"Manda pra quem aceita isso calado" — drives o sinal #1 do algoritmo</div>
               </div>
+            </div>
+          </div>
+
+          <!-- Formats v3 -->
+          <div style="margin-bottom: 16px;">
+            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">🔒 Formatos Travados (v3)</div>
+            <div style="display: grid; gap: 8px;">
+              <div style="background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: var(--gold);">💡 Ideia do Dia <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— diário</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">Não é "ideia legal" — é "esse problema NÃO PRECISA EXISTIR". Carrossel 3-4 slides com opinião pessoal obrigatória.</div>
+              </div>
+              <div style="background: rgba(232,121,249,0.08); border: 1px solid rgba(232,121,249,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: #e879f9;">❓ Você Já...? <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 3x/semana</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">Não é "compartilhe sua dor" — é "POR QUE a gente aceita isso?". Questiona a normalização de problemas.</div>
+              </div>
+              <div style="background: rgba(6,214,160,0.08); border: 1px solid rgba(6,214,160,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: #06d6a0;">🔨 Build da Semana <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 1x/semana (sexta)</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">Prova de que você não precisa aceitar. Toda sexta, um protótipo real de uma ideia da semana. "Reclamaram → eu construí."</div>
+              </div>
+              <div style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: #f59e0b;">📬 Caixa de Ideias <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— stories (segunda)</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">Toda segunda nos stories: "O que te incomoda? Me conta que eu construo uma solução." Alimenta o pipeline de ideias + engajamento direto.</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: var(--dim);">🎲 Rotativo <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 1x/semana</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">IA ou Real? / Bastidores / etc. Conteúdo leve que mantém variedade.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Calendar -->
+          <div style="margin-bottom: 16px;">
+            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">📅 Calendário Semanal Padrão</div>
+            <div style="display: grid; gap: 4px; color: var(--dim);">
+              <div><strong style="color: #f59e0b;">SEG</strong> — 💡 Ideia + 📬 Caixa de Ideias (stories)</div>
+              <div><strong style="color: var(--text);">TER</strong> — 💡 Ideia + ❓ Você Já</div>
+              <div><strong style="color: var(--text);">QUA</strong> — 💡 Ideia</div>
+              <div><strong style="color: var(--text);">QUI</strong> — 💡 Ideia + ❓ Você Já</div>
+              <div><strong style="color: #06d6a0;">SEX</strong> — 💡 Ideia + 🔨 Build da Semana</div>
+              <div><strong style="color: var(--text);">SÁB</strong> — 💡 Ideia + ❓ Você Já</div>
+              <div><strong style="color: var(--text);">DOM</strong> — 💡 Ideia + 🎲 Rotativo</div>
             </div>
           </div>
 
@@ -559,34 +609,19 @@
             <div style="display: grid; gap: 6px;">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.2rem;">💾</span>
-                <span><strong>20+ saves</strong> → ideia validada → <span style="color: var(--gold);">BUILD IT</span> (vira ferramenta gratuita)</span>
+                <span><strong>20+ saves</strong> → ideia validada → <span style="color: var(--gold);">BUILD IT</span></span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.2rem;">📩</span>
-                <span><strong>50+ sends</strong> → conteúdo viral → criar variações (stories, hot take, thread)</span>
+                <span><strong>50+ sends</strong> → conteúdo viral → criar variações</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.2rem;">💬</span>
-                <span><strong>100+ comments</strong> → tópico quente → fazer Ideia do Dia sobre o tema</span>
+                <span><strong>100+ comments</strong> → tópico quente → Ideia do Dia sobre o tema</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.2rem;">🔄</span>
-                <span><strong>"Tá fora do ar?"</strong> → prova de demanda não-solicitada → <span style="color: var(--success);">PRIORIDADE MÁXIMA</span></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Locked Formats -->
-          <div style="margin-bottom: 16px;">
-            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">🔒 Formatos Travados (v2)</div>
-            <div style="display: grid; gap: 8px;">
-              <div style="background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-weight: 600; color: var(--gold);">💡 Ideia do Dia <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 3x/semana</span></div>
-                <div style="color: var(--dim); margin-top: 4px;">Carrossel 3-4 slides. Hook provocativo → problema → solução/ideia → CTA polarizante pra sends. Objetivo: crescimento + compartilhamento.</div>
-              </div>
-              <div style="background: rgba(232,121,249,0.08); border: 1px solid rgba(232,121,249,0.2); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-weight: 600; color: #e879f9;">❓ Você Já...? <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 1-2x/semana</span></div>
-                <div style="color: var(--dim); margin-top: 4px;">Card único ou mini-carrossel (2 slides). Formato de descoberta de problema — engajamento via identificação. Valida dores reais pra futuras ideias.</div>
+                <span><strong>"Tá fora do ar?"</strong> → <span style="color: var(--success);">PRIORIDADE MÁXIMA</span></span>
               </div>
             </div>
           </div>
@@ -597,8 +632,7 @@
             <div style="color: var(--dim); display: grid; gap: 4px;">
               <div>• <strong>~10% engagement rate</strong> (vs ~3-5% single image, ~2-3% Reels)</div>
               <div>• Segunda chance do algoritmo: não swipou → IG mostra slide 2 depois</div>
-              <div>• 23% mais chance de ser impulsionado (dados 2025)</div>
-              <div>• Sweet spot: <strong>3-4 slides</strong> (hook → problema → solução → CTA)</div>
+              <div>• Sweet spot: <strong>3-4 slides</strong> (hook → problema → opinião → CTA)</div>
             </div>
           </div>
 
